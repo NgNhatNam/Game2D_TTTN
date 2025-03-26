@@ -22,12 +22,16 @@ public class EnemyCombat : MonoBehaviour
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position,weaponRange,playerLayer);
         if (hits.Length >= 0)
         {
-            PlayerHealth playerHealth = hits[0].GetComponent<PlayerHealth>();   
+            PlayerHealth playerHealth = hits[0].GetComponent<PlayerHealth>();  
+            PlayerMovement playerKnockBack = hits[0].GetComponent<PlayerMovement>();
             if (playerHealth != null)
             {
                 playerHealth.TakeDamage(damage);
             }
-            hits[0].GetComponent<PlayerMovement>().KnockBack(transform, knockBackForce, stuntime);
+            if (playerKnockBack != null)
+            {
+                playerKnockBack.KnockBack(transform, knockBackForce, stuntime);
+            }
         }
 
     }

@@ -1516,7 +1516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4993eef4cda9845afab854b486eb83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: SampleScene
+  sceneToLoad: GameManager
 --- !u!95 &1965947749
 Animator:
   serializedVersion: 5

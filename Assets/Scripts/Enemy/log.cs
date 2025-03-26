@@ -8,8 +8,8 @@ public class log : Enemy
     public float chaseRadius;
     public float attackRadius;
     public float attackCooldown = 1;
+    public bool notInRoom = false;
 
-  
 
     //public Transform attackPoint;
     public Transform target;
@@ -73,7 +73,7 @@ public class log : Enemy
         }else
         {
             ChangeState(EnemyState.idle);
-            //rb.velocity = Vector2.zero;
+            rb.velocity = Vector2.zero;
         }
 
 

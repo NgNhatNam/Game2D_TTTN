@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public enum EnemyState
@@ -11,26 +13,53 @@ public enum EnemyState
 }
 public class Enemy : MonoBehaviour
 {
-    public EnemyState currentState;
-    public float maxHealth;
-
     
+
+    public EnemyState currentState;
+    //public float maxHealth;
     public float health;
+    public int score;
+  
+
     public string enemyName;
-    public int baseAttack;
     public float moveSpeed;
 
+    public event Action OnDeath;
+    public event Action<int> OnScoreReward;
+
+    /* Lỗi
     private void Awake()
     {
         health = maxHealth;
+ 
+    }*/
+
+    private void Start()
+    {
+        PlayerHealth player = FindObjectOfType<PlayerHealth>();
+        if (player != null)
+        {
+            OnScoreReward += player.AddScore;
+        }
     }
+
     public void TakeDamage(float damage) 
     {
         health -= damage;
         if (health <= 0)
         {
-            this.gameObject.SetActive(false);
+            Die();
         }
+    }
+
+    void Die()
+    {
+        OnScoreReward?.Invoke(score); // Gửi điểm cho ai đăng ký
+
+        OnDeath?.Invoke();
+        gameObject.SetActive(false);
+        // Xử lý khi player chết
+        Debug.Log("Player đã chết!");
     }
 
     public void Knock(Rigidbody2D rb, float knockTime, float damage)
@@ -45,7 +74,7 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(knockTime);
             rb.velocity = Vector2.zero;
             currentState = EnemyState.idle;
-            rb.velocity = Vector2.zero;
+           // rb.velocity = Vector2.zero;
         }
     }
 

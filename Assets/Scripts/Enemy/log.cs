@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class log : Enemy
+public class Log : Enemy
 {
     public float chaseRadius;
     public float attackRadius;
     public float attackCooldown = 1;
-    public bool notInRoom = false;
 
 
     //public Transform attackPoint;
@@ -20,13 +19,16 @@ public class log : Enemy
     private int facingDirection = -1;
     private EnemyState enemyState;
     private Rigidbody2D rb;
-    
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+    }
     // Start is called before the first frame update
     void Start()
     {
-        
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+
         target = GameObject.FindWithTag("Player").transform;
         currentState = EnemyState.idle;
     }
@@ -39,11 +41,9 @@ public class log : Enemy
             attackCooldownTimer -= Time.deltaTime;
         }
         CheckDistance();
-        
-
     }
 
-    void CheckDistance()
+    public void CheckDistance()
     {
         //ChangeState(EnemyState.idle); 
         if (Vector3.Distance(target.position, transform.position) <= chaseRadius &&
@@ -53,7 +53,7 @@ public class log : Enemy
             if (currentState == EnemyState.idle || currentState == EnemyState.walk
                         && currentState != EnemyState.stagger)
             {
-                rb.velocity = Vector2.zero;
+                //rb.velocity = Vector2.zero;
                 Chase();
                 transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
                 ChangeState(EnemyState.walk);
@@ -69,11 +69,11 @@ public class log : Enemy
             attackCooldownTimer = attackCooldown;
             ChangeState(EnemyState.attack);
             
-            rb.velocity = Vector2.zero;
+            //rb.velocity = Vector2.zero;
         }else
         {
             ChangeState(EnemyState.idle);
-            rb.velocity = Vector2.zero;
+           //rb.velocity = Vector2.zero;
         }
 
 
@@ -164,10 +164,6 @@ public class log : Enemy
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRadius);
-
-      
-
-
     }
 
 }

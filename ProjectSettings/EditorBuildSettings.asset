@@ -5,19 +5,37 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameManager.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DungeonRooms/BasementStart.unity
     guid: f1defc91983e9744383bb88587eac2db
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DungeonRooms/BasementEmpty.unity
     guid: f5a877ae99915914dbe984e1bd438f84
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DungeonRooms/BasementBoss.unity
     guid: f535540617a889c4e9a8f6ff046a0218
   - enabled: 1
-    path: Assets/Scenes/GameManagerTTTN.unity
-    guid: 7a7852ec185ea344191f2a29e4d94e52
+    path: Assets/Scenes/TTTN/Level 1.unity
+    guid: 83515be431e7e9e47bf9c889b580110e
+  - enabled: 1
+    path: Assets/Scenes/TTTN/Level 2.unity
+    guid: 166c6778af9e3524ea2c6ea4b14d3dbb
+  - enabled: 1
+    path: Assets/Scenes/TTTN/Level 3.unity
+    guid: faf3d6119fcb5464ab9194aee8d884ce
+  - enabled: 1
+    path: Assets/Scenes/TTTN/Level 4.unity
+    guid: b65524ab2677b544582a16e8ceb33f64
+  - enabled: 1
+    path: Assets/Scenes/TTTN/Level 5.unity
+    guid: 592afe7f101f5ab4db1933eb51ae2d6c
+  - enabled: 1
+    path: Assets/Scenes/TTTN/Level 6.unity
+    guid: 35ebaf07c12e53e408b3f24f75874561
+  - enabled: 1
+    path: Assets/Scenes/TTTN/MainMenu.unity
+    guid: c9d7f3b78075ed149b6a25f5f216fa4e
   m_configObjects: {}

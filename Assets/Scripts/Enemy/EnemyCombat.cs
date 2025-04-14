@@ -5,13 +5,13 @@ using UnityEngine;
 public class EnemyCombat : MonoBehaviour
 {
     public float damage;
-    
-    
-    public float weaponRange;    
+
+
+    public float weaponRange;
     public float knockBackForce;
     public float stuntime;
 
-    public log enemy;
+    public Log enemy;
     public Transform attackPoint;
     public LayerMask playerLayer;
 
@@ -19,10 +19,10 @@ public class EnemyCombat : MonoBehaviour
 
     public void Attack()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position,weaponRange,playerLayer);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, playerLayer);
         if (hits.Length >= 0)
         {
-            PlayerHealth playerHealth = hits[0].GetComponent<PlayerHealth>();  
+            PlayerHealth playerHealth = hits[0].GetComponent<PlayerHealth>();
             PlayerMovement playerKnockBack = hits[0].GetComponent<PlayerMovement>();
             if (playerHealth != null)
             {
@@ -33,13 +33,15 @@ public class EnemyCombat : MonoBehaviour
                 playerKnockBack.KnockBack(transform, knockBackForce, stuntime);
             }
         }
+    } 
+
+    public void BomAttack()
+    {
 
     }
 
     public void OnDrawGizmosSelected()
     {
-        //if (attackPoint == null) return;
-
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPoint.position, weaponRange);
     }

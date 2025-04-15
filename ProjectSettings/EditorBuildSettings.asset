@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/DungeonRooms/BasementBoss.unity
     guid: f535540617a889c4e9a8f6ff046a0218
   - enabled: 1
+    path: Assets/Scenes/TTTN/MainMenu.unity
+    guid: c9d7f3b78075ed149b6a25f5f216fa4e
+  - enabled: 1
     path: Assets/Scenes/TTTN/Level 1.unity
     guid: 83515be431e7e9e47bf9c889b580110e
   - enabled: 1
@@ -35,7 +38,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TTTN/Level 6.unity
     guid: 35ebaf07c12e53e408b3f24f75874561
-  - enabled: 1
-    path: Assets/Scenes/TTTN/MainMenu.unity
-    guid: c9d7f3b78075ed149b6a25f5f216fa4e
   m_configObjects: {}

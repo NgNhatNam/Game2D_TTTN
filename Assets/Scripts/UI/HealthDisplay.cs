@@ -13,9 +13,12 @@ public class HealthDisplay : MonoBehaviour
     public float health;
     public float playerMaxHealth;
     public PlayerHealth playerHealth;
-   
+
+
     void Update()
-    {
+    { 
+       
+        //-------------------------------------------------------------------------------------------------------------
         health = playerHealth.health;
         playerMaxHealth = playerHealth.maxHealth;
 

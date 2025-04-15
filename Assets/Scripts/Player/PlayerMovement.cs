@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
+
 
 public enum PlayerState
 {
@@ -18,7 +18,7 @@ public enum PlayerState
 public class PlayerMovement : MonoBehaviour
 {
     public float speed;
-    public Signals playerHealthSignal;
+    //public Signals playerHealthSignal;
     public PlayerState currentState;
 
     private Camera mainCamera;
@@ -31,14 +31,14 @@ public class PlayerMovement : MonoBehaviour
     public float coolDown;
     private float timer;
     
-    
+    /*
     // Dash 
     public float dashSpeed = 10f; // Tốc độ dash
     public float dashDuration = 0.2f; // Thời gian dash
     public float dashCooldown = 1f; // Thời gian cooldown giữa các lần dash
     private bool isDashing = false; // Trạng thái dash
     private float dashTimer = 0f; // Đếm ngược cooldown
-
+    */
 
 
     public int facingDirection = 1; // 1: nhìn phải, -1: nhìn trái
@@ -59,11 +59,11 @@ public class PlayerMovement : MonoBehaviour
             timer -= Time.deltaTime;
         }
 
-        // Giảm cooldown dash
+        /*/ Giảm cooldown dash
         if (dashTimer > 0)
         {
             dashTimer -= Time.deltaTime;
-        }
+        }*/
 
         FlipToMouseDirection();
 
@@ -79,11 +79,11 @@ public class PlayerMovement : MonoBehaviour
             hand.FinishAttack();
         }
 
-        // Dash khi nhấn Shift
+        /*/ Dash khi nhấn Shift
         if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer <= 0 && !isDashing)
         {
             StartCoroutine(Dash());
-        }
+        }*/
     }
 
     void FixedUpdate()
@@ -96,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isKnockedBack == false)
         {
-            if(!isDashing) { 
+            //if(!isDashing) { 
                 currentState = PlayerState.walk;
                 float horizontal = Input.GetAxis("Horizontal");
                 float vertical = Input.GetAxis("Vertical");
@@ -114,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     currentState = PlayerState.idle;
                 }
-            }
+            //}
         }
         else
         {
@@ -173,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
         isKnockedBack = false;
     }
 
-
+    /*
     IEnumerator Dash()
     {
         isDashing = true;
@@ -210,6 +210,6 @@ public class PlayerMovement : MonoBehaviour
         // Bắt đầu cooldown
         dashTimer = dashCooldown;
     }
-
+    */
 
 }

@@ -20,7 +20,7 @@ public class EnemyCombat : MonoBehaviour
     public void Attack()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, playerLayer);
-        if (hits.Length >= 0)
+        if (hits.Length > 0)
         {
             PlayerHealth playerHealth = hits[0].GetComponent<PlayerHealth>();
             PlayerMovement playerKnockBack = hits[0].GetComponent<PlayerMovement>();

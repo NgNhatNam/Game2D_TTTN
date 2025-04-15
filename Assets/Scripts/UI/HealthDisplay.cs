@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,15 +11,21 @@ public class HealthDisplay : MonoBehaviour
     public Sprite halfHeart;
     public Sprite emptyHeart;
 
+
+    public TMP_Text scoreText;
     public float health;
     public float playerMaxHealth;
     public PlayerHealth playerHealth;
 
 
     void Update()
-    { 
-       
-        //-------------------------------------------------------------------------------------------------------------
+    {
+        // Đưa điểm lên màn hình 
+        if (playerHealth != null && scoreText != null)
+        {
+            scoreText.text = "Score: " + playerHealth.currentScore.ToString();
+        }
+        //Đưa thanh máu lên màn hình
         health = playerHealth.health;
         playerMaxHealth = playerHealth.maxHealth;
 

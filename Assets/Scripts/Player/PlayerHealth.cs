@@ -125,6 +125,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    // Reset lại số điểm
     public void ResetToCheckpoint()
     {
         currentScore = scoreCheckpoint;

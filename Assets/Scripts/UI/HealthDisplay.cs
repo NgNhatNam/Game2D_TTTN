@@ -11,10 +11,11 @@ public class HealthDisplay : MonoBehaviour
     public Sprite halfHeart;
     public Sprite emptyHeart;
 
-
     public TMP_Text scoreText;
+    
     public float health;
     public float playerMaxHealth;
+    
     public PlayerHealth playerHealth;
 
 

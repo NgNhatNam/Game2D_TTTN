@@ -59,6 +59,7 @@ public class PauseMenu : MonoBehaviour
     */
     [Header("UI Panel")]
     public GameObject pauseMenu;
+    public GameObject settingsPanel;
 
     private bool isPaused = false;
 
@@ -108,15 +109,16 @@ public class PauseMenu : MonoBehaviour
     public void OpenSettings()
     {
         
-            pauseMenu.SetActive(false);
-       
+        pauseMenu.SetActive(false);
+        settingsPanel.SetActive(true);
+
     }
 
     public void CloseSettings()
     {
-        
-            //settingsPanel.SetActive(false);
-            pauseMenu.SetActive(true);
+        pauseMenu.SetActive(true);
+        settingsPanel.SetActive(false);
+            
         
     }
 

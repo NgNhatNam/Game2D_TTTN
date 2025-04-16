@@ -151,13 +151,13 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log($"[SAVE] {levelKey} | Score = {currentScore} | MaxHealth = {maxHealth}");
     }
 
-    // Gọi khi nhặt item tăng máu vĩnh viễn ( Cái này chưa dùng)
+    // Gọi khi nhặt item tăng máu vĩnh viễn 
     public void IncreaseMaxHealth(float amount)
     {
         maxHealth += amount;
         health = maxHealth;
         PlayerPrefs.SetFloat(MaxHealthKey, maxHealth);
         PlayerPrefs.Save();
-        Debug.Log("Tăng máu vĩnh viễn. MaxHealth mới: " + maxHealth);
+        Debug.Log("Tăng máu. MaxHealth mới: " + maxHealth);
     }
 }

@@ -24,12 +24,6 @@ public class LevelMenu : MonoBehaviour
         }
 
     }
-    /*
-    public void OpenLevel(int levelId)
-    {
-        string levelName = "Level " + levelId;
-        SceneManager.LoadScene(levelName);
-    }*/
 
     void ButtonsToArray()
     {
@@ -40,29 +34,7 @@ public class LevelMenu : MonoBehaviour
             buttons[i] = levelButtons.transform.GetChild(i).GetComponent<Button>();
         }
     }
-    /*
-    public void OpenLevel(int levelId)
-    {
-        string levelName = "Level " + levelId;
 
-        // Nếu là level đầu tiên, lấy chính nó
-        int loadFromLevel = Mathf.Max(1, levelId - 1);
-        string loadFromName = "Level " + loadFromLevel;
-
-        // Lấy dữ liệu từ level trước đó
-        int score = PlayerPrefs.GetInt(loadFromName + "_Score", 0);
-        float maxHealth = PlayerPrefs.GetFloat(loadFromName + "_MaxHealth", 4f);
-
-        // Gán vào PlayerPrefs dùng chung
-        PlayerPrefs.SetInt("PlayerScore", score);
-        PlayerPrefs.SetFloat("Player_MaxHealth", maxHealth);
-        PlayerPrefs.Save();
-
-        Debug.Log($"[LOAD LEVEL {levelId}] -> Dùng dữ liệu từ {loadFromName} | Score = {score} | MaxHealth = {maxHealth}");
-
-        SceneManager.LoadScene(levelName);
-    }
-    */
     public void OpenLevel(int levelId)
     {
         string levelName = "Level " + levelId;

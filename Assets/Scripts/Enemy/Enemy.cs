@@ -10,6 +10,7 @@ public enum EnemyState
     walk,
     attack,
     stagger,// Lảo đảo
+    die,
 }
 public class Enemy : MonoBehaviour
 {
@@ -19,20 +20,27 @@ public class Enemy : MonoBehaviour
     //public float maxHealth;
     public float health;
     public int score;
-  
-
     public string enemyName;
     public float moveSpeed;
 
+    
     public event Action OnDeath;
     public event Action<int> OnScoreReward;
 
-    /* Lỗi
+    public EnemyState enemyState;
+
+
+    private AudioManager audioManager;
+    private Animator animator;
+
+
     private void Awake()
     {
-        health = maxHealth;
- 
-    }*/
+        //health = maxHealth; lỗi
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        animator = GetComponent<Animator>();
+
+    }
 
     private void Start()
     {
@@ -48,16 +56,18 @@ public class Enemy : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            currentState = EnemyState.die;
             Die();
         }
     }
 
-    void Die()
+    public void Die()
+
     {
-        OnScoreReward?.Invoke(score); // Gửi điểm cho ai đăng ký
+        OnScoreReward?.Invoke(score); // Gửi điểm 
 
         OnDeath?.Invoke();
-        gameObject.SetActive(false);
+
         // Xử lý khi player chết
         Debug.Log("Player đã chết!");
     }
@@ -67,7 +77,7 @@ public class Enemy : MonoBehaviour
         StartCoroutine(KnockCo(rb, knockTime));
         TakeDamage(damage);
     }
-     public IEnumerator KnockCo(Rigidbody2D rb, float knockTime)
+    public IEnumerator KnockCo(Rigidbody2D rb, float knockTime)
     {
         if (rb != null )
         {

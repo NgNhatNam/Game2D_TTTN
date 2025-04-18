@@ -88,6 +88,7 @@ public class PlayerHealth : MonoBehaviour
     [Header("Điểm")]
     public int currentScore;
 
+
     // Dữ liệu tạm tại thời điểm bắt đầu màn (checkpoint)
     private float healthCheckpoint;
     private int scoreCheckpoint;
@@ -95,8 +96,17 @@ public class PlayerHealth : MonoBehaviour
     // Key dùng để lưu theo toàn game
     private const string MaxHealthKey = "Player_MaxHealth";
     private const string ScoreKey = "PlayerScore";
+    
+    private AudioManager audioManager;
+
 
     public bool die = false;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+
+    }
 
     void Start()
     {
@@ -112,6 +122,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void AddScore(int amount)
     {
+        audioManager.PlaySFX(audioManager.coin);
         currentScore += amount;
         Debug.Log("Player nhận điểm: " + amount + " | Tổng điểm: " + currentScore);
     }
@@ -130,6 +141,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentScore = scoreCheckpoint;
         health = healthCheckpoint;
+        die = false;
         Debug.Log("Khôi phục lại điểm và máu đầu màn.");
     }
 

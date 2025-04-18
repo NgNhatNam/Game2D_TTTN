@@ -70,7 +70,7 @@ public class GameController : MonoBehaviour
             Die();
         }
     }
-
+    
     void Die()
     {
         //PlayerPrefs.DeleteAll();
@@ -83,4 +83,6 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    
+
 }

@@ -53,7 +53,7 @@ public class FinishPoint : MonoBehaviour
             if (playerHealth != null)
             {
                 playerHealth.SaveLevelProgress(); // Lưu score + maxHealth
-                playerHealth.IncreaseMaxHealth(1);
+                playerHealth.IncreaseMaxHealth(2);
             }
 
             UnlockNewLevel();

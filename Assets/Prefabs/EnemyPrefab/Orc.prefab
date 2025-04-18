@@ -200,11 +200,11 @@ MonoBehaviour:
   score: 1
   enemyName: 'Orc '
   moveSpeed: 1
+  enemyState: 0
   chaseRadius: 16.9
   attackRadius: 1.5
   attackCooldown: 2
   target: {fileID: 4969788334863616099}
-  anim: {fileID: 7423837148525364589}
 --- !u!114 &1147656622658056484
 MonoBehaviour:
   m_ObjectHideFlags: 0

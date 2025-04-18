@@ -4,91 +4,52 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
-{   
-    /*
-    public GameObject pauseMenu;
-    public static bool isPaused; // Biến kiểm tra trạng thái pause
-
-    public void Start()
-    {
-        pauseMenu.SetActive(false);
-    }
-    public void Update()
-    {
-        // Kiểm tra nếu nhấn phím Esc
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (isPaused)
-            {
-                Resume(); // Nếu đang pause, tiếp tục game
-            }
-            else
-            {
-                Pause(); // Nếu không pause, bật pause menu
-            }
-        }
-    }
-
-    public void Pause()
-    {
-        pauseMenu.SetActive(true); // Bật Pause Menu
-        Time.timeScale = 0f; // Dừng thời gian game
-        isPaused = true; // Cập nhật trạng thái pause
-    } 
-
-    public void Quit()
-    {
-        //Time.timeScale = 1; // Đảm bảo thời gian game được khôi phục
-        //SceneManager.LoadScene("Main Menu"); // Tải scene Main Menu
-    }
-
-    public void Resume()
-    {
-        Debug.Log("Resume button clicked!");
-        pauseMenu.SetActive(false); // Tắt Pause Menu
-        Time.timeScale = 1f; // Khôi phục thời gian game
-        isPaused = false; // Cập nhật trạng thái không pause
-    }
-
-    public void Restart()
-    {
-        Debug.Log("Restart button clicked!");
-        //Time.timeScale = 1; // Đảm bảo thời gian game được khôi phục
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Tải lại scene hiện tại
-    }
-    */
+{
     [Header("UI Panel")]
     public GameObject pauseMenu;
     public GameObject settingsPanel;
+    public GameObject playerDeathPanel;
 
     private bool isPaused = false;
+    private PlayerHealth playerHealth;
 
-
-    void Update()
+    private void Awake()
     {
-        
+        playerHealth = FindObjectOfType<PlayerHealth>();
+        // Tắt hết các UI ban đầu
+        pauseMenu.SetActive(false);
+        settingsPanel.SetActive(false);
+        playerDeathPanel.SetActive(false);
+    }
 
-        // Kiểm tra nếu nhấn phím Esc
+    public void Update()
+    {
+        // Mở/Tắt Pause Menu khi nhấn ESC và không đang chết
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused)
-            {
-                ResumeGame(); // Nếu đang pause, tiếp tục game
-            }
-            else
-            {
-                PauseGame(); // Nếu không pause, bật pause menu
-            }
+            if (isPaused) ResumeGame();
+            else PauseGame();
         }
+        if (playerHealth != null && playerHealth.die)
+        {
+            ShowDeathScreen();
+        }
+
     }
+
+    public void ShowDeathScreen()
+    {
+        isPaused = true;
+        Time.timeScale = 0f;
+        playerDeathPanel.SetActive(true);
+    }
+
 
     public void PauseGame()
     {
-        
         isPaused = true;
         Time.timeScale = 0f;
         pauseMenu.SetActive(true);
-        
     }
 
     public void ResumeGame()
@@ -96,35 +57,40 @@ public class PauseMenu : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
-        
-        
+        settingsPanel.SetActive(false);
+        playerDeathPanel.SetActive(false);
     }
 
     public void ReloadLevel()
     {
-        Time.timeScale = 1f;
+        // Gọi từ UI khi chết hoặc từ menu
+        ResumeGame();
+        playerHealth.ResetToCheckpoint();
+        playerHealth.die = false;
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void OpenSettings()
     {
-        
         pauseMenu.SetActive(false);
         settingsPanel.SetActive(true);
-
     }
 
     public void CloseSettings()
     {
-        pauseMenu.SetActive(true);
         settingsPanel.SetActive(false);
-            
-        
+        pauseMenu.SetActive(true);
     }
 
     public void QuitToMainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(0); // Giả sử Level 0 là Main Menu
+        SceneManager.LoadScene(0); 
+    }
+
+    public void QuitToDesktop()
+    {
+        Application.Quit();
     }
 }

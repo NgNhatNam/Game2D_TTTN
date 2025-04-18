@@ -15,10 +15,16 @@ public class EnemyCombat : MonoBehaviour
     public Transform attackPoint;
     public LayerMask playerLayer;
 
+    AudioManager audioManager;
 
-
-    public void Attack()
+    private void Awake()
     {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+
+    }
+    public void OrcAttack()
+    {
+        audioManager.PlaySFX(audioManager.orcAttack);
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, playerLayer);
         if (hits.Length > 0)
         {
@@ -33,11 +39,49 @@ public class EnemyCombat : MonoBehaviour
                 playerKnockBack.KnockBack(transform, knockBackForce, stuntime);
             }
         }
-    } 
+    }
 
-    public void BomAttack()
+    public void BomerAttack()
     {
+        audioManager.PlaySFX(audioManager.bomerAttack);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, playerLayer);
+        if (hits.Length > 0)
+        {
+            PlayerHealth playerHealth = hits[0].GetComponent<PlayerHealth>();
+            PlayerMovement playerKnockBack = hits[0].GetComponent<PlayerMovement>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(damage);
+            }
+            if (playerKnockBack != null)
+            {
+                playerKnockBack.KnockBack(transform, knockBackForce, stuntime);
+            }
+        }
+    }
 
+    public void BossAttack()
+    {
+        audioManager.PlaySFX(audioManager.bossAttack);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, playerLayer);
+        if (hits.Length > 0)
+        {
+            PlayerHealth playerHealth = hits[0].GetComponent<PlayerHealth>();
+            PlayerMovement playerKnockBack = hits[0].GetComponent<PlayerMovement>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(damage);
+            }
+            if (playerKnockBack != null)
+            {
+                playerKnockBack.KnockBack(transform, knockBackForce, stuntime);
+            }
+        }
+    }   
+
+    public void SoundBossDeath()
+    {
+        audioManager.PlaySFX(audioManager.bomerAttack);
     }
 
     public void OnDrawGizmosSelected()

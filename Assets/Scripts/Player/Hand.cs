@@ -13,7 +13,13 @@ public class Hand : MonoBehaviour
     private Camera mainCam;
     private Vector3 mousePos;
     private PlayerMovement playerFlip;
+    private AudioManager audioManager;
 
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -43,9 +49,26 @@ public class Hand : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, rotZ);
     }
 
+    
+  
+    //-------------------------------------------------------------------------
+    // Hàm công khai để kích hoạt animation attack
+    public void isAttack()
+    {
+        
+        //attackAnim.SetBool("isAttack", true); // Đặt "Attack" thành true
+        StartCoroutine (Attack());
+    }
+    public void FinishAttack()
+    {
+            attackAnim.SetBool("isAttack", false); // Đặt "Attack" thành false
+    }
+
+
     // Coroutine để xử lý animation và trigger collider
     private IEnumerator Attack()
     {
+        audioManager.PlaySFX(audioManager.playerAttack);
         // Bật trigger collider
         attackTrigger.enabled = true;
 
@@ -61,19 +84,6 @@ public class Hand : MonoBehaviour
         // Kết thúc animation attack
         attackAnim.SetBool("isAttack", false);
         //yield return new WaitForSeconds(knockbackTime);
-    }
-
-  
-    //-------------------------------------------------------------------------
-    // Hàm công khai để kích hoạt animation attack
-    public void isAttack()
-    {
-        //attackAnim.SetBool("isAttack", true); // Đặt "Attack" thành true
-        StartCoroutine (Attack());
-    }
-    public void FinishAttack()
-    {
-            attackAnim.SetBool("isAttack", false); // Đặt "Attack" thành false
     }
 
 

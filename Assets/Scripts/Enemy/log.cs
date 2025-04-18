@@ -12,12 +12,11 @@ public class Log : Enemy
 
     //public Transform attackPoint;
     public Transform target;
-    public Animator anim;
+    private Animator anim;
 
 
     private float attackCooldownTimer;
     private int facingDirection = -1;
-    private EnemyState enemyState;
     private Rigidbody2D rb;
 
     private void Awake()
@@ -36,46 +35,66 @@ public class Log : Enemy
     // Update is called once per frame
     void Update()
     {
-        if (attackCooldownTimer > 0)
+        if (currentState != EnemyState.die)
         {
-            attackCooldownTimer -= Time.deltaTime;
+            if (attackCooldownTimer > 0)
+            {
+                attackCooldownTimer -= Time.deltaTime;
+            }
+            CheckDistance();
         }
-        CheckDistance();
+        else
+        {
+            //rb.GetComponent<Collider2D>().enabled = false;
+            rb.velocity = Vector2.zero;
+            rb.isKinematic = true;
+
+            anim.SetTrigger("EDeath");
+
+
+
+            //StartCoroutine(DeathCo());
+        }
     }
+
+    public void deathEnemy()
+    {
+        gameObject.SetActive(false);
+    }
+
+
 
     public void CheckDistance()
     {
-        //ChangeState(EnemyState.idle); 
-        if (Vector3.Distance(target.position, transform.position) <= chaseRadius &&
-                   Vector3.Distance(target.position, transform.position) >= attackRadius)
-        {
         
-            if (currentState == EnemyState.idle || currentState == EnemyState.walk
-                        && currentState != EnemyState.stagger)
+            if (Vector3.Distance(target.position, transform.position) <= chaseRadius &&
+                       Vector3.Distance(target.position, transform.position) >= attackRadius)
             {
-                //rb.velocity = Vector2.zero;
-                Chase();
-                transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
-                ChangeState(EnemyState.walk);
-            }
-            else 
-            {
-                ChangeState(EnemyState.stagger);
-            }
-        }
-        else if (
-            Vector3.Distance(transform.position, target.transform.position) <= attackRadius && attackCooldownTimer <= 0)
-        {
-            attackCooldownTimer = attackCooldown;
-            ChangeState(EnemyState.attack);
-            
-            //rb.velocity = Vector2.zero;
-        }else
-        {
-            ChangeState(EnemyState.idle);
-           //rb.velocity = Vector2.zero;
-        }
 
+                if (currentState == EnemyState.idle || currentState == EnemyState.walk
+                            && currentState != EnemyState.stagger)
+                {
+                    Chase();
+                    transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+                    ChangeState(EnemyState.walk);
+                }
+                else
+                {
+                    ChangeState(EnemyState.stagger);
+                }
+            }
+            else if (
+                Vector3.Distance(transform.position, target.transform.position) <= attackRadius && attackCooldownTimer <= 0)
+            {
+                attackCooldownTimer = attackCooldown;
+                ChangeState(EnemyState.attack);
+
+            }
+            else
+            {
+                ChangeState(EnemyState.idle);
+            }
+        
 
     }
     /*
@@ -111,7 +130,6 @@ public class Log : Enemy
 
     } */
 
-
     void Chase()
     {  
         if (target.position.x < transform.position.x && facingDirection == -1 ||
@@ -140,6 +158,8 @@ public class Log : Enemy
             anim.SetBool("EAttack", false);
         else if (enemyState == EnemyState.stagger)
             anim.SetBool("EStagger", false);
+        
+
 
         // Cập nhập trạng thái hiện tại
         enemyState = newState;
@@ -153,9 +173,8 @@ public class Log : Enemy
             anim.SetBool("EAttack", true);
         else if (enemyState == EnemyState.stagger)
             anim.SetBool("EStagger", true);
-    }
-
     
+    }
 
     private void OnDrawGizmosSelected()
     {

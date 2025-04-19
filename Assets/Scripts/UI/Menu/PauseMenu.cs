@@ -10,9 +10,8 @@ public class PauseMenu : MonoBehaviour
     public GameObject settingsPanel;
     public GameObject playerDeathPanel;
 
-    private bool isPaused = false;
+    private static bool isPaused = false;
     private PlayerHealth playerHealth;
-
     private void Awake()
     {
         playerHealth = FindObjectOfType<PlayerHealth>();

@@ -31,31 +31,35 @@ public class Hand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Lấy vị trí chuột trong không gian thế giới
-        mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        if (Time.timeScale != 0)
+        {// Lấy vị trí chuột trong không gian thế giới
+            mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
 
-        // Tính toán góc xoay của tay
-        Vector3 rotation = mousePos - transform.position;
-        float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+            // Tính toán góc xoay của tay
+            Vector3 rotation = mousePos - transform.position;
+            float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
 
-        // Áp dụng hướng flip của nhân vật vào tay
-        if (playerFlip.GetFacingDirection() < 0)
-        {
-            // Nếu nhân vật đang nhìn trái, điều chỉnh góc xoay
-            rotZ += 180;
+            // Áp dụng hướng flip của nhân vật vào tay
+            if (playerFlip.GetFacingDirection() < 0)
+            {
+                // Nếu nhân vật đang nhìn trái, điều chỉnh góc xoay
+                rotZ += 180;
+            }
+
+            // Áp dụng góc xoay
+            transform.rotation = Quaternion.Euler(0, 0, rotZ);
         }
-
-        // Áp dụng góc xoay
-        transform.rotation = Quaternion.Euler(0, 0, rotZ);
+        else
+        {
+            Time.timeScale = 0f;
+        }
+        
     }
 
-    
-  
     //-------------------------------------------------------------------------
     // Hàm công khai để kích hoạt animation attack
     public void isAttack()
     {
-        
         //attackAnim.SetBool("isAttack", true); // Đặt "Attack" thành true
         StartCoroutine (Attack());
     }
@@ -85,11 +89,5 @@ public class Hand : MonoBehaviour
         attackAnim.SetBool("isAttack", false);
         //yield return new WaitForSeconds(knockbackTime);
     }
-
-
-
-
-
-
 
 }

@@ -73,4 +73,9 @@ public class LevelMenu : MonoBehaviour
         SceneManager.LoadScene(0);
         Debug.Log("Đã xóa toàn bộ dữ liệu!");
     }
+
+    public void QuitToDesktop()
+    {
+        Application.Quit();
+    }
 }

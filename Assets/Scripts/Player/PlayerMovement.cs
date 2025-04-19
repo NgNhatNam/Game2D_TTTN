@@ -24,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
     private Camera mainCamera;
     private Rigidbody2D rb;
     private Animator anim;
-    
    
     private bool isKnockedBack;
     // [SerializeField]
@@ -43,7 +42,8 @@ public class PlayerMovement : MonoBehaviour
 
     public int facingDirection = 1; // 1: nhìn phải, -1: nhìn trái
     public Hand hand; // Tham chiếu đến Hand\
-    
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -53,37 +53,44 @@ public class PlayerMovement : MonoBehaviour
     }
      void Update()
     {
-        // Giảm timer nếu nó lớn hơn 0
-        if (timer > 0)
+        if(Time.timeScale != 0)
+        {// Giảm timer nếu nó lớn hơn 0
+            if (timer > 0)
+            {
+                timer -= Time.deltaTime;
+            }
+
+            /*/ Giảm cooldown dash
+            if (dashTimer > 0)
+            {
+                dashTimer -= Time.deltaTime;
+            }*/
+
+            FlipToMouseDirection();
+
+            // Kiểm tra nếu nhấn chuột trái
+            if (Input.GetMouseButtonDown(0) && timer <= 0)
+            {
+                timer = coolDown;
+                //currentState = PlayerState.attack;
+                hand.isAttack();
+            }
+            else
+            {
+                hand.FinishAttack();
+            }
+
+            /*/ Dash khi nhấn Shift
+            if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer <= 0 && !isDashing)
+            {
+                StartCoroutine(Dash());
+            }*/
+        }
+        else
         {
-            timer -= Time.deltaTime;
+            Time.timeScale = 0f;
         }
 
-        /*/ Giảm cooldown dash
-        if (dashTimer > 0)
-        {
-            dashTimer -= Time.deltaTime;
-        }*/
-
-        FlipToMouseDirection();
-
-        // Kiểm tra nếu nhấn chuột trái
-        if (Input.GetMouseButtonDown(0) && timer <= 0 )
-        {
-            timer = coolDown;
-            //currentState = PlayerState.attack;
-            hand.isAttack();        
-        }
-        else 
-        {
-            hand.FinishAttack();
-        }
-
-        /*/ Dash khi nhấn Shift
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer <= 0 && !isDashing)
-        {
-            StartCoroutine(Dash());
-        }*/
     }
 
     void FixedUpdate()

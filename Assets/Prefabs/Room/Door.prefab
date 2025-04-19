@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 2748259625532889381, guid: 622be9b9fac5785419f5d123194d1758, type: 3}
-  enemySpawn: {fileID: 0}
   collisionEntered:
     m_PersistentCalls:
       m_Calls:
@@ -749,11 +748,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5989949653588015630, guid: ff86c6b97072f044dbea78acc70a5839, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.12
+      value: -0.21
       objectReference: {fileID: 0}
     - target: {fileID: 5989949653588015630, guid: ff86c6b97072f044dbea78acc70a5839, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.49
+      value: 6.45
       objectReference: {fileID: 0}
     - target: {fileID: 5989949653588015630, guid: ff86c6b97072f044dbea78acc70a5839, type: 3}
       propertyPath: m_LocalPosition.z

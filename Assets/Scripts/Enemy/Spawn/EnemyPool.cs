@@ -25,8 +25,10 @@ public class EnemyPool : MonoBehaviour
     {
         // Tự tìm PlayerHealth trong scene
         playerHealth = FindObjectOfType<PlayerHealth>();
-        SpawnAllEnemies();
         CalculateTotalEnemies();
+        SpawnAllEnemies();
+        
+        
     }
 
     private void CalculateTotalEnemies()
@@ -38,8 +40,11 @@ public class EnemyPool : MonoBehaviour
         }
     }
 
+
     private void SpawnAllEnemies()
     {
+        _totalEnemies = 0; // Khởi tạo lại mỗi lần spawn
+
         foreach (EnemyType type in enemyTypes)
         {
             for (int i = 0; i < type.spawnCount; i++)
@@ -49,19 +54,24 @@ public class EnemyPool : MonoBehaviour
                 {
                     enemy.OnDeath += HandleEnemyDeath;
 
-                    // Gán sự kiện cộng điểm cho Player
                     if (playerHealth != null)
                     {
                         enemy.OnScoreReward += playerHealth.AddScore;
                     }
+
+                    _totalEnemies++; // 👉 Chỉ tính khi thực sự spawn thành công
                 }
             }
+
         }
+
+        Debug.Log($"Spawned {_totalEnemies} enemies.");
     }
 
     private void HandleEnemyDeath()
     {
         _defeatedEnemies++;
+        Debug.Log($"Enemy chết: {_defeatedEnemies}/{_totalEnemies}");
         CheckAllEnemiesDefeated();
     }
 

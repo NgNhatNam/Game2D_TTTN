@@ -23,12 +23,12 @@ public class Enemy : MonoBehaviour
     public string enemyName;
     public float moveSpeed;
 
-    
+    private bool isDead = false;
+
     public event Action OnDeath;
     public event Action<int> OnScoreReward;
 
     public EnemyState enemyState;
-
 
     private AudioManager audioManager;
     private Animator animator;
@@ -53,9 +53,12 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage) 
     {
+        if (isDead) return;
+
         health -= damage;
         if (health <= 0)
         {
+            isDead = true;
             currentState = EnemyState.die;
             Die();
         }
@@ -68,8 +71,7 @@ public class Enemy : MonoBehaviour
 
         OnDeath?.Invoke();
 
-        // Xử lý khi player chết
-        Debug.Log("Player đã chết!");
+        Debug.Log("Enemy đã chết!");
     }
 
     public void Knock(Rigidbody2D rb, float knockTime, float damage)
